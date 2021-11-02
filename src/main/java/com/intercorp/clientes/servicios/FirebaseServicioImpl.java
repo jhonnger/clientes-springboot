@@ -20,12 +20,9 @@ public class FirebaseServicioImpl implements FirebaseServicio{
     Firestore db;
 
     public FirebaseServicioImpl() {
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-
-        File file = new File(Objects.requireNonNull(classLoader.getResource("intercorp-cliente-firebase-adminsdk.json")).getFile());
 
         try {
-            InputStream serviceAccount = new FileInputStream(file);
+            InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("intercorp-cliente-firebase-adminsdk.json");;
             GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(credentials)
